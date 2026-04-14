@@ -35,7 +35,7 @@ fun GameSelectionScreen(
         {
             Button(onClick=goToTicTacToe)
             {
-                Text(text="TictacToe")
+                Text(text="TicTacToe")
             }
             Spacer(modifier = Modifier.width(20.dp))
             Text(text="Placeholder2")
