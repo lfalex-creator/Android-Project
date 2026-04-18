@@ -8,7 +8,9 @@ import com.example.androidapp.ui.screens.GameSelectionScreen
 import com.example.androidapp.ui.screens.TicTacToeScreen
 
 @Composable
-fun GameSelectionNavigation(){
+fun GameSelectionNavigation(
+    onLogout: ()->Unit
+){
     val navController=rememberNavController()
     NavHost (
         navController= navController,
@@ -16,13 +18,15 @@ fun GameSelectionNavigation(){
     ){
         composable("gameSelection") {
             GameSelectionScreen(
-                goToTicTacToe = { navController.navigate("TTTScreen") }
+                goToTicTacToe = { navController.navigate("TTTScreen") },
+                logout = onLogout
             )
         }
 
         composable("TTTScreen") {
             TicTacToeScreen()
         }
+
     }
 
 }

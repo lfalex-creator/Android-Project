@@ -9,10 +9,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidapp.ui.navigation.AuthenticationNavigation
 import com.example.androidapp.ui.navigation.GameSelectionNavigation
 import com.example.androidapp.ui.theme.AndroidAppTheme
+import com.example.androidapp.viewModels.AuthViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +28,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidAppTheme {
-                GameSelectionNavigation()
-            }
+                val authViewModel: AuthViewModel = viewModel()
+                val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
+
+                if (isLoggedIn) {
+                    GameSelectionNavigation(
+                        onLogout = {
+                            authViewModel.logout()
+                        }
+                    )
+                } else {
+                    AuthenticationNavigation(authViewModel = authViewModel)
+                }
         }
     }
+}
 }
 
 @Composable

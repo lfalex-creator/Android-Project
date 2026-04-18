@@ -13,12 +13,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun GameSelectionScreen(
-    goToTicTacToe:()->Unit = {}
+    goToTicTacToe:()->Unit = {},
+    logout: ()->Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -55,7 +57,13 @@ fun GameSelectionScreen(
                 text="Placeholder4"
             )
         }
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(onClick=logout)
+        {
+            Text(text = "Log out")
+        }
     }
+
 }
 
 @Preview(showBackground = true)

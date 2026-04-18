@@ -1,0 +1,6 @@
+package com.example.androidapp.util
+
+import android.util.Patterns
+
+fun String.isValidEmail() = isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+fun String.isValidPassword() = this.length > 5
