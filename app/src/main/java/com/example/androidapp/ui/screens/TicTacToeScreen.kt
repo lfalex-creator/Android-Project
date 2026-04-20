@@ -78,7 +78,17 @@ var playerTwoSymb=' '
                                 matr[row][col] = if (playerOneTurn) playerOneSymb else playerTwoSymb
                                 if(CheckWinner(matr))
                                 {
-                                    ShowWinner(context, playerOneTurn)
+                                    ShowWinner(context, playerOneTurn,false)
+
+                                    val temp= playerOneSymb
+                                    playerOneSymb = playerTwoSymb
+                                    playerTwoSymb = temp
+
+                                    Reset(matr)
+                                }
+                                else if (CheckTie(matr))
+                                {
+                                    ShowWinner(context, playerOneTurn,true)
 
                                     val temp= playerOneSymb
                                     playerOneSymb = playerTwoSymb
@@ -101,15 +111,36 @@ var playerTwoSymb=' '
             )
         }
     }
-    fun ShowWinner(context: Context,playerOneTurn: Boolean) {
-        AlertDialog.Builder(context)
-            .setTitle("Winner!")
-            .setMessage(if (playerOneTurn) "Player 1 wins!" else "Player 2 wins!")
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+    fun ShowWinner(context: Context,playerOneTurn: Boolean, isTie: Boolean) {
+        if(!isTie)
+        {
+            AlertDialog.Builder(context)
+                .setTitle("Winner!")
+                .setMessage(if (playerOneTurn) "Player 1 wins!" else "Player 2 wins!")
+                .setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+        else
+        {
+            AlertDialog.Builder(context)
+                .setTitle("Tie!")
+                .setPositiveButton("Ok") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
+fun CheckTie(matr: Array<CharArray>) : Boolean
+{
+    for(i in 0 until 3)
+        for(j in 0 until 3)
+            if(matr[i][j]==' ')
+                return false;
+
+    return !CheckWinner(matr);
+}
     fun CheckWinner(matr: Array<CharArray>) : Boolean
     {
         for(i in 0 until 3)
