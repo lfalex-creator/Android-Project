@@ -30,12 +30,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.res.TypedArrayUtils.getString
+import com.example.androidapp.R
 import com.example.androidapp.util.isValidEmail
 import com.example.androidapp.util.isValidPassword
 import kotlin.Boolean
@@ -53,6 +58,8 @@ fun RegisterScreen(
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
     var passwordVisibility by remember { mutableStateOf(false) }
+    val emailErrorText=stringResource(R.string.emailerr)
+    val passwordErrorText=stringResource(R.string.passerr)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,12 +69,12 @@ fun RegisterScreen(
     )
     {
         Text(
-            text = "Welcome",
+            text = stringResource(R.string.welcome),
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge
         )
         Text(
-            text = "Register Page",
+            text = stringResource(R.string.register_regtext),
             color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.headlineSmall
         )
@@ -81,7 +88,7 @@ fun RegisterScreen(
                 emailError = null
             },
             label = {
-                Text("Email")
+                Text(stringResource(R.string.email))
             },
             leadingIcon = {
                 Icon(
@@ -111,7 +118,7 @@ fun RegisterScreen(
                 passwordError = null
             },
             label = {
-                Text("Password")
+                Text(stringResource(R.string.password))
             },
             leadingIcon = {
                 Icon(
@@ -149,7 +156,7 @@ fun RegisterScreen(
                             Icons.Default.Visibility
                         },
 
-                        if (passwordVisibility) "Show password" else "Hide Password",
+                        if (passwordVisibility) stringResource(R.string.showpass) else stringResource(R.string.hidepass),
 
 
                         )
@@ -164,11 +171,11 @@ fun RegisterScreen(
             {
                 var valid = true
                 if (!email.isValidEmail()) {
-                    emailError = "Invalid Email"
+                    emailError = emailErrorText
                     valid = false
                 }
                 if (!password.isValidPassword()) {
-                    passwordError = "Invalid Password"
+                    passwordError = passwordErrorText
                     valid = false
                 }
                 if (valid) {
@@ -186,7 +193,7 @@ fun RegisterScreen(
                     strokeWidth = 2.dp
                 )
 
-                false -> Text("Register")
+                false -> Text(stringResource(R.string.register))
             }
         }
         errorMessage?.let { error ->
@@ -203,7 +210,7 @@ fun RegisterScreen(
         TextButton(
             onLoginClick
         ) {
-            Text("Already have an account? LogIn")
+            Text(stringResource(R.string.register_tologin))
         }
     }
 }

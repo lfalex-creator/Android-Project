@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Aplicatie Android</string>
+
+    <string name="email">Email</string>
+    <string name="password">Parola</string>
+    <string name="welcome">Bine ati venit</string>
+
+    <string name="showpass">Arata parola</string>
+    <string name="hidepass">Ascunde parola</string>
+    <string name="emailerr">Email invalid</string>
+    <string name="passerr">Parola invalida</string>
+
+    <string name="register">Inregistrare</string>
+    <string name="register_regtext">Pagina de inregistrare</string>
+    <string name="register_tologin">Aveti deja un cont? Logati-va</string>
+
+    <string name="login">Logare</string>
+    <string name="login_logtext">Pagina de logare</string>
+    <string name="login_toregister">Nu aveti un cont? Inregistrati-va</string>
+
+    <string name="TTT">X si O</string>
+    <string name="logout">Deconectare</string>
+
+    <string name="TTT_init">Juacatorul 1, te rog alege un simbol</string>
+    <string name="TTT_tie">Egalitate</string>
+    <string name="TTT_win">Castigator!</string>
+    <string name="TTT_p1w">"Jucatorul 1 a castigat!"</string>
+    <string name="TTT_p2w">"Jucatorul 2 a castigat!"</string>
+    <string name="TTT_p1t">"Runda jucatorului 1"</string>
+    <string name="TTT_p2t">"Runda jucatorului 2"</string>
+</resources>

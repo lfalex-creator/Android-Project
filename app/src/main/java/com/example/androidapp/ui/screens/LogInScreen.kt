@@ -29,12 +29,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androidapp.R
 import com.example.androidapp.util.isValidEmail
 import com.example.androidapp.util.isValidPassword
 
@@ -52,6 +54,8 @@ fun LogInScreen(
     var passwordVisibility by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
+    val emailErrorText=stringResource(R.string.emailerr)
+    val passwordErrorText=stringResource(R.string.passerr)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -61,12 +65,12 @@ fun LogInScreen(
     )
     {
         Text(
-            text = "Welcome",
+            text = stringResource(R.string.welcome),
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge
         )
         Text(
-            text = "Log In Page",
+            text = stringResource(R.string.login_logtext),
             color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.headlineSmall
         )
@@ -80,7 +84,7 @@ fun LogInScreen(
                 emailError = null
             },
             label = {
-                Text("Email")
+                Text(stringResource(R.string.email))
             },
             leadingIcon = {
                 Icon(
@@ -110,7 +114,7 @@ fun LogInScreen(
                 passwordError = null
             },
             label = {
-                Text("Password")
+                Text(stringResource(R.string.password))
             },
             leadingIcon = {
                 Icon(
@@ -148,7 +152,7 @@ fun LogInScreen(
                             Icons.Default.Visibility
                         },
 
-                        if (passwordVisibility) "Show password" else "Hide Password",
+                        if (passwordVisibility) stringResource(R.string.showpass) else stringResource(R.string.hidepass),
 
 
                         )
@@ -163,11 +167,11 @@ fun LogInScreen(
             {
                 var valid = true
                 if (!email.isValidEmail()) {
-                    emailError = "Invalid Email"
+                    emailError = emailErrorText
                     valid = false
                 }
                 if(!password.isValidPassword()) {
-                    passwordError = "Invalid Password"
+                    passwordError = passwordErrorText
                     valid = false
                 }
                 if (valid) {
@@ -185,7 +189,7 @@ fun LogInScreen(
                     strokeWidth = 2.dp
                 )
 
-                false -> Text("Login")
+                false -> Text(stringResource(R.string.login))
             }
 
 
@@ -204,7 +208,7 @@ fun LogInScreen(
         TextButton(
             onRegisterClick
         ) {
-            Text("Don't have an account? Register")
+            Text(stringResource(R.string.login_toregister))
         }
     }
 }

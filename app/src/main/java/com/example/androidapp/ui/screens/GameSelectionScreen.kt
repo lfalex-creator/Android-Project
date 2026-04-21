@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.R
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androidapp.R as R2
 
 @Composable
 fun GameSelectionScreen(
@@ -37,7 +40,7 @@ fun GameSelectionScreen(
         {
             Button(onClick=goToTicTacToe)
             {
-                Text(text="TicTacToe")
+                Text(text=stringResource(R2.string.TTT))
             }
             Spacer(modifier = Modifier.width(20.dp))
             Text(text="Placeholder2")
@@ -60,10 +63,9 @@ fun GameSelectionScreen(
         Spacer(modifier = Modifier.height(50.dp))
         Button(onClick=logout)
         {
-            Text(text = "Log out")
+            Text(text = stringResource(R2.string.logout))
         }
     }
-
 }
 
 @Preview(showBackground = true)

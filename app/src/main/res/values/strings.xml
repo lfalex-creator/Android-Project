@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Android App</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="welcome">Welcome</string>
+
+    <string name="showpass">Show Password</string>
+    <string name="hidepass">Hide Password</string>
+    <string name="emailerr">Invalid Email</string>
+    <string name="passerr">Invalid Password</string>
+
+    <string name="register">Register</string>
+    <string name="register_regtext">Register Page</string>
+    <string name="register_tologin">Already have an account? LogIn</string>
+
+    <string name="login">Login</string>
+    <string name="login_logtext">Login Page</string>
+    <string name="login_toregister">Don\'t have an account? Register</string>
+
+    <string name="TTT">TicTacToe</string>
+    <string name="logout">Logout</string>
+
+    <string name="TTT_init">Player 1, please pick a symbol</string>
+    <string name="TTT_tie">Tie</string>
+    <string name="TTT_win">Winner!</string>
+    <string name="TTT_p1w">"Player 1 wins!"</string>
+    <string name="TTT_p2w">"Player 2 wins!"</string>
+    <string name="TTT_p1t">"Player 1's turn"</string>
+    <string name="TTT_p2t">"Player 2's turn"</string>
 </resources>
