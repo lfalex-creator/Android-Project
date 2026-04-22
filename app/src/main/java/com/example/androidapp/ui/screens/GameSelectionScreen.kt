@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.R
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,11 +17,12 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androidapp.R as R2
+import com.example.androidapp.R
 
 @Composable
 fun GameSelectionScreen(
     goToTicTacToe:()->Unit = {},
+    goToBallSorting:()->Unit = {},
     logout: ()->Unit = {}
 ) {
     Column(
@@ -40,10 +40,13 @@ fun GameSelectionScreen(
         {
             Button(onClick=goToTicTacToe)
             {
-                Text(text=stringResource(R2.string.TTT))
+                Text(text=stringResource(R.string.TTT))
             }
             Spacer(modifier = Modifier.width(20.dp))
-            Text(text="Placeholder2")
+            Button(onClick=goToBallSorting)
+            {
+                Text(text="Ball Sorting")
+            }
         }
         Spacer(modifier = Modifier.height(50.dp))
         Row(
@@ -63,7 +66,7 @@ fun GameSelectionScreen(
         Spacer(modifier = Modifier.height(50.dp))
         Button(onClick=logout)
         {
-            Text(text = stringResource(R2.string.logout))
+            Text(text = stringResource(R.string.logout))
         }
     }
 }
