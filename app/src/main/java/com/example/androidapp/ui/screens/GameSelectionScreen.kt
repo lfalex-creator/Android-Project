@@ -45,7 +45,7 @@ fun GameSelectionScreen(
             Spacer(modifier = Modifier.width(20.dp))
             Button(onClick=goToBallSorting)
             {
-                Text(text="Ball Sorting")
+                Text(text=stringResource(R.string.BS))
             }
         }
         Spacer(modifier = Modifier.height(50.dp))

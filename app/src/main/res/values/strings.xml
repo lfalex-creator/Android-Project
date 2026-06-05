@@ -19,6 +19,7 @@
     <string name="login_toregister">Don\'t have an account? Register</string>
 
     <string name="TTT">TicTacToe</string>
+    <string name="BS">Ball sorting</string>
     <string name="logout">Logout</string>
 
     <string name="TTT_init">Player 1, please pick a symbol</string>
@@ -28,4 +29,6 @@
     <string name="TTT_p2w">"Player 2 wins!"</string>
     <string name="TTT_p1t">"Player 1's turn"</string>
     <string name="TTT_p2t">"Player 2's turn"</string>
+
+    <string name="BS_win">"Congratulations, you've won!"</string>
 </resources>

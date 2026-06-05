@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,9 +31,9 @@ import com.example.androidapp.viewModels.BSViewModel
 @Composable
 fun BallSortingScreen(viewModel: BSViewModel = viewModel())
 {
-    val colours = viewModel.generateRandomColours()
-    val matrix = viewModel.scrambleSolution(colours)
-    var aBallSelected = false
+    var colours = viewModel.generateRandomColours()
+    var matrix = viewModel.scrambleSolution(colours)
+    val context=LocalContext.current
     Column(
         modifier= Modifier
             .fillMaxSize(),
@@ -62,23 +63,12 @@ fun BallSortingScreen(viewModel: BSViewModel = viewModel())
                                 .width(100.dp)
                                 .height(170.dp)
                                 .clickable{
-                                    var index = -1
-                                    for(i in 2 downTo 0)
-                                        if(matrix[i][nr]!=-1)
-                                        {
-                                            index=i
-                                            break
-                                        }
-                                    if(matrix[3][nr]==-1)
+                                    viewModel.onClick(nr)
+                                    if(viewModel.checkWinnner())
                                     {
-                                        val aux = matrix[index][nr]
-                                        matrix[index][nr]=-1
-                                        matrix[3][nr]=aux
-                                    }
-                                    else
-                                    {
-                                        matrix[index+1][nr]=matrix[3][nr]
-                                        matrix[3][nr]=-1
+                                        viewModel.showWinner(context)
+                                        colours = viewModel.generateRandomColours()
+                                        matrix = viewModel.scrambleSolution(colours)
                                     }
                                 }
                         )

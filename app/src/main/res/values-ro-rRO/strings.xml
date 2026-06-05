@@ -19,6 +19,7 @@
     <string name="login_toregister">Nu aveti un cont? Inregistrati-va</string>
 
     <string name="TTT">X si O</string>
+    <string name="BS">Sortare bile</string>
     <string name="logout">Deconectare</string>
 
     <string name="TTT_init">Juacatorul 1, te rog alege un simbol</string>
@@ -28,4 +29,6 @@
     <string name="TTT_p2w">"Jucatorul 2 a castigat!"</string>
     <string name="TTT_p1t">"Runda jucatorului 1"</string>
     <string name="TTT_p2t">"Runda jucatorului 2"</string>
+
+    <string name="BS_win">"Felicitari, ati castigat!"</string>
 </resources>

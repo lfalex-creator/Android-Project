@@ -1,7 +1,10 @@
 package com.example.androidapp.viewModels
 
+import android.app.AlertDialog
+import android.content.Context
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import com.example.androidapp.R
 import kotlin.random.Random
 
 class BSViewModel : ViewModel() {
@@ -32,14 +35,16 @@ class BSViewModel : ViewModel() {
         }
         return toReturn
     }
+    var matrix = arrayOf(
+        IntArray(12),
+        IntArray(12),
+        IntArray(12),
+        IntArray(12)
+    )
+    var previouslyClicked = -1
+    var ballSeleted = false
     fun scrambleSolution(cupColours: HashMap<Int, Color>) : Array<IntArray>
     {
-        val matrix = arrayOf(
-            IntArray(12),
-            IntArray(12),
-            IntArray(12),
-            IntArray(12)
-        )
         for(i in 0..11)
         {
             if(i!=4)
@@ -103,5 +108,55 @@ class BSViewModel : ViewModel() {
             }
         }
         return matrix
+    }
+    fun onClick(nr:Int)
+    {
+        var index = -1
+        for(i in 2 downTo 0)
+            if(matrix[i][nr]!=-1)
+            {
+                index=i
+                break
+            }
+
+        if(previouslyClicked != nr)
+        {
+            if(!ballSeleted)
+            {
+                val aux = matrix[index][nr]
+                matrix[index][nr]=-1
+                matrix[3][nr]=aux
+                ballSeleted = true
+            }
+            else
+            {
+                matrix[index+1][nr]=matrix[3][previouslyClicked]
+                matrix[3][previouslyClicked]=-1
+                ballSeleted = false
+            }
+        }
+        else
+        {
+            matrix[index+1][nr]=matrix[3][nr]
+            matrix[3][nr]=-1
+            ballSeleted = false
+        }
+        previouslyClicked = nr
+    }
+    fun checkWinnner() : Boolean
+    {
+        for(i in 0..11)
+            if(!(matrix[0][i]==matrix[1][i] && matrix[2][i]==matrix[1][i] && matrix[3][i]==-1))
+                return false;
+        return true;
+    }
+    fun showWinner(context: Context) {
+        AlertDialog.Builder(context)
+            .setTitle(context.getString(R.string.TTT_win))
+            .setMessage(context.getString(R.string.BS_win))
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
