@@ -31,4 +31,7 @@
     <string name="TTT_p2t">"Runda jucatorului 2"</string>
 
     <string name="BS_win">"Felicitari, ati castigat!"</string>
+
+    <string name="CP_win">"Felicitari, ati castigat!"</string>
+    <string name="CP_lose">"O nu, ati pierdut!"</string>
 </resources>

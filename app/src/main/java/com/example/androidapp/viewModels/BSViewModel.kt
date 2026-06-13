@@ -42,7 +42,7 @@ class BSViewModel : ViewModel() {
         IntArray(12)
     )
     var previouslyClicked = -1
-    var ballSeleted = false
+    var ballSelected = false
     fun scrambleSolution(cupColours: HashMap<Int, Color>) : Array<IntArray>
     {
         for(i in 0..11)
@@ -121,25 +121,27 @@ class BSViewModel : ViewModel() {
 
         if(previouslyClicked != nr)
         {
-            if(!ballSeleted)
+            if(!ballSelected)
             {
                 val aux = matrix[index][nr]
                 matrix[index][nr]=-1
                 matrix[3][nr]=aux
-                ballSeleted = true
+                ballSelected = true
             }
             else
             {
+                if(index==2)
+                    return;
                 matrix[index+1][nr]=matrix[3][previouslyClicked]
                 matrix[3][previouslyClicked]=-1
-                ballSeleted = false
+                ballSelected = false
             }
         }
         else
         {
             matrix[index+1][nr]=matrix[3][nr]
             matrix[3][nr]=-1
-            ballSeleted = false
+            ballSelected = false
         }
         previouslyClicked = nr
     }
@@ -152,7 +154,6 @@ class BSViewModel : ViewModel() {
     }
     fun showWinner(context: Context) {
         AlertDialog.Builder(context)
-            .setTitle(context.getString(R.string.TTT_win))
             .setMessage(context.getString(R.string.BS_win))
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()

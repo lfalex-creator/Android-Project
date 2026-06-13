@@ -23,6 +23,7 @@ import com.example.androidapp.R
 fun GameSelectionScreen(
     goToTicTacToe:()->Unit = {},
     goToBallSorting:()->Unit = {},
+    goToColourPicker:()->Unit = {},
     logout: ()->Unit = {}
 ) {
     Column(
@@ -55,9 +56,10 @@ fun GameSelectionScreen(
             horizontalArrangement = Arrangement.Center
         )
         {
-            Text(
-                text="Placeholder3"
-            )
+            Button(onClick=goToColourPicker)
+            {
+                Text(text="Colour Picker")
+            }
             Spacer(modifier = Modifier.width(20.dp))
             Text(
                 text="Placeholder4"

@@ -31,4 +31,7 @@
     <string name="TTT_p2t">"Player 2's turn"</string>
 
     <string name="BS_win">"Congratulations, you've won!"</string>
+
+    <string name="CP_win">"Congratulations, you've won!"</string>
+    <string name="CP_lose">"Oh no, you've lost!"</string>
 </resources>
