@@ -24,7 +24,8 @@ fun GameSelectionScreen(
     goToTicTacToe:()->Unit = {},
     goToBallSorting:()->Unit = {},
     goToColourPicker:()->Unit = {},
-    logout: ()->Unit = {}
+    logout: ()->Unit = {},
+    goToUsers: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -58,14 +59,19 @@ fun GameSelectionScreen(
         {
             Button(onClick=goToColourPicker)
             {
-                Text(text="Colour Picker")
+                Text(text=stringResource(R.string.CP))
             }
             Spacer(modifier = Modifier.width(20.dp))
             Text(
                 text="Placeholder4"
             )
         }
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(onClick=goToUsers)
+        {
+            Text(text=stringResource(R.string.users))
+        }
+        Spacer(modifier = Modifier.height(30.dp))
         Button(onClick=logout)
         {
             Text(text = stringResource(R.string.logout))

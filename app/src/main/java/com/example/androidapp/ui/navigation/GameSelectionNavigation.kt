@@ -8,6 +8,7 @@ import com.example.androidapp.ui.screens.BallSortingScreen
 import com.example.androidapp.ui.screens.ColourPickerScreen
 import com.example.androidapp.ui.screens.GameSelectionScreen
 import com.example.androidapp.ui.screens.TicTacToeScreen
+import com.example.androidapp.ui.screens.UsersScreen
 
 @Composable
 fun GameSelectionNavigation(
@@ -23,6 +24,7 @@ fun GameSelectionNavigation(
                 goToTicTacToe = { navController.navigate("TTTScreen") },
                 goToBallSorting = {navController.navigate("BSScreen")},
                 goToColourPicker = {navController.navigate("CPScreen")},
+                goToUsers = {navController.navigate("UsersScreen")},
                 logout = onLogout
             )
         }
@@ -35,6 +37,9 @@ fun GameSelectionNavigation(
         }
         composable("CPScreen") {
             ColourPickerScreen()
+        }
+        composable("UsersScreen"){
+            UsersScreen()
         }
 
     }

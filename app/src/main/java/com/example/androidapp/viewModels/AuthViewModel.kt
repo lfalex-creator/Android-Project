@@ -1,12 +1,18 @@
 package com.example.androidapp.viewModels
 
+import android.app.Application
 import android.os.Message
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.androidapp.ui.data.AppDataBase
+import com.example.androidapp.ui.data.entities.UserEntity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 
 data class AuthState(
@@ -15,7 +21,9 @@ data class AuthState(
 )
 
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(
+    application: Application
+) : AndroidViewModel(application) {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val _authState = MutableStateFlow(AuthState())
@@ -57,11 +65,14 @@ class AuthViewModel : ViewModel() {
                 _authState.value= AuthState(errorMessage = it.message )
             }
     }
-
-
-
     fun logout() {
         auth.signOut()
     }
-
+    private val userDao = AppDataBase.getDatabase(application).userDao()
+    fun insert(email: String)
+    {
+        viewModelScope.launch{
+            userDao.insert(UserEntity(email = email))
+        }
+    }
 }

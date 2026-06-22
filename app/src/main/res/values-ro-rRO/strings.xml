@@ -20,7 +20,9 @@
 
     <string name="TTT">X si O</string>
     <string name="BS">Sortare bile</string>
+    <string name="CP">Alegere culori</string>
     <string name="logout">Deconectare</string>
+    <string name="users">Utilizatori</string>
 
     <string name="TTT_init">Juacatorul 1, te rog alege un simbol</string>
     <string name="TTT_tie">Egalitate</string>

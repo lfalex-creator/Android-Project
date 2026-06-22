@@ -55,7 +55,8 @@ fun AuthenticationNavigation(
                     authViewModel.register(email, password)
                 },
                 isLoading = authState.isLoading,
-                errorMessage = authState.errorMessage
+                errorMessage = authState.errorMessage,
+                viewModel = authViewModel
             )
         }
 
