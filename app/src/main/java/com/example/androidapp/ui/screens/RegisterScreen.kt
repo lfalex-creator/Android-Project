@@ -48,7 +48,6 @@ import com.example.androidapp.util.isValidPassword
 import com.example.androidapp.viewModels.AuthViewModel
 import com.example.androidapp.viewModels.BSViewModel
 import kotlin.Boolean
-
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,

@@ -1,13 +1,18 @@
 package com.example.androidapp.ui.screens
 
+import android.app.Application
+import android.content.Context
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -45,6 +50,13 @@ import com.example.androidapp.viewModels.UsersViewModel
 import kotlin.text.insert
 import com.example.androidapp.ui.data.entities.UserEntity
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.example.androidapp.R
+import com.example.androidapp.ui.data.entities.GamesDataEntity
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun UsersScreen(viewModel: UsersViewModel = viewModel())
@@ -53,150 +65,49 @@ fun UsersScreen(viewModel: UsersViewModel = viewModel())
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp) //pune intre fiecare elem cate un spatiu de 16 dp
+            .padding(24.dp)
+            .border(width = 5.dp, color = Color.Red),
+        verticalArrangement = Arrangement.spacedBy(16.dp), //pune intre fiecare elem cate un spatiu de 16 dp
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(users.value){ user -> //un fel de foreach()
-            UserCell(user)
+            UserCell(user,viewModel.getUserGames(user.id))
         }
     }
 }
 
 @Composable
-fun UserCell(user: UserEntity)
+fun UserCell(user: UserEntity,games: Flow<List<GamesDataEntity>>)
 {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(
             text = user.email,
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),//f - float, pt a nu crea evidenta pt fiecare culoare
             style = MaterialTheme.typography.bodyMedium
         )
-    }
-}
-@Composable
-fun UserScreenHeader(viewModel: UsersViewModel)
-{
-    var email by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var emailError by remember { mutableStateOf<String?>(null) }
-    var nameError by remember { mutableStateOf<String?>(null) }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    )
-    {
-        Text(
-            text = "Users",
-            color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.headlineLarge
-        )
-        Spacer(
-            modifier = Modifier.height(32.dp)
-        )
-        OutlinedTextField(
-            value = email,
-            onValueChange = { newValue ->
-                email = newValue//primeste val scrisa in field
-                emailError = null
-            },
-            label = {
-                Text("Email")
-            },
-            leadingIcon = {
-                Icon(
-                    Icons.Default.Email,
-                    contentDescription = null
-                )//content description ajuta la teste unitare
-            },
-            isError = emailError?.let {
-                true
-            } ?: false,
-            supportingText = emailError?.let { { Text(it) } },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email, //tastatura speciala cu @ usor accesibil (langa space)
-                imeAction = ImeAction.Next//face butonul de "Enter" sa faca "Next"
+        Spacer(modifier = Modifier.width(5.dp))
+        val games by games.collectAsState(initial = emptyList())
+        val totalScore= games.sumOf { gamesDataEntity -> gamesDataEntity.score }
+            Row(
+                horizontalArrangement = Arrangement.Center
             )
-        )
-        Spacer(
-            modifier = Modifier.height(16.dp)
-
-        )
-        OutlinedTextField(
-            value = name,
-            onValueChange = { newValue ->
-                name = newValue//primeste val scrisa in field
-                nameError = null
-            },
-            label = {
-                Text("Name")
-            },
-            leadingIcon = {
-                Icon(
-                    Icons.Default.Person,
-                    contentDescription = null
-                )//content description ajuta la teste unitare
-            },
-            isError = nameError?.let {
-                true
-            } ?: false,
-            supportingText = nameError?.let { { Text(it) } },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text, //tastatura speciala cu @ usor accesibil (langa space)
-                imeAction = ImeAction.Done//face butonul de "Enter" sa faca "Next"
-
-            )
-        )
-        Spacer(
-            modifier = Modifier.height(16.dp)
-
-        )
-        Button(
             {
-                var valid = true
-                if (!email.isValidEmail()) {
-                    emailError = "Invalid Email"
-                    valid = false
-                }
-                if(!name.isValidPassword()) {
-                    nameError = "Invalid Name"
-                    valid = false
-                }
-                if (valid) {
-                    emailError = null
-                    nameError = null
-                    viewModel.insert(email)
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-            //enabled = !isLoading
-        ) {
-//            when (isLoading) {
-//                true -> CircularProgressIndicator(
-//                    modifier = Modifier.size(24.dp),
-//                    strokeWidth = 2.dp
-//                )
-//
-//                false -> Text("Login")
-//            }
-            Text("Add user")
-
-        }
-//        errorMessage?.let{error->
-//            Spacer(
-//                modifier = Modifier.height(8.dp)
-//
-//            )
-//            Text(error)
-//        }
-
+                Text(
+                    text = "Scor:",
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),//f - float, pt a nu crea evidenta pt fiecare culoare
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    text = totalScore.toString(),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),//f - float, pt a nu crea evidenta pt fiecare culoare
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        Spacer(modifier = Modifier.width(15.dp))
     }
 }
 @Preview(showBackground = true)

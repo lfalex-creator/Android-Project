@@ -6,7 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.androidapp.ui.data.entities.UserEntity
 import com.example.androidapp.ui.data.DAO.UsersDAO
-@Database(entities = [UserEntity::class], version = 2)
+import com.example.androidapp.ui.data.entities.GameEntity
+import com.example.androidapp.ui.data.entities.UserGameEntity
+
+@Database(
+    entities = [
+        UserEntity::class,
+        GameEntity::class,
+        UserGameEntity::class],
+    version = 1)
 abstract class AppDataBase : RoomDatabase()
 {
     abstract fun userDao(): UsersDAO

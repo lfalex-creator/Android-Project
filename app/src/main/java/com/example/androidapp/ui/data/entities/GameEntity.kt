@@ -3,9 +3,9 @@ package com.example.androidapp.ui.data.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "users")
-data class UserEntity(
+@Entity(tableName = "games")
+data class GameEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val email: String
+    val name: String
 )
