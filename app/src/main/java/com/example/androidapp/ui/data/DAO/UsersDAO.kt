@@ -11,14 +11,13 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UsersDAO {
-    //in Java: singura posib de "a instantia" o interfata este printr-o instanta anonima
-    @Insert(onConflict = OnConflictStrategy.REPLACE) //implica si un update fortat
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: UserEntity)
 
     @Query("SELECT * FROM users")
     fun getAll(): Flow<List<UserEntity>>
 
-    @Query("SELECT * FROM users WHERE id = :id")//:id = parametru din functie
+    @Query("SELECT * FROM users WHERE id = :id")
     fun getById(id: Long): UserEntity?
 
     @Query("SELECT games.name,users_games.score FROM users_games JOIN games on users_games.gameId=games.id WHERE users_games.userId = :id")
