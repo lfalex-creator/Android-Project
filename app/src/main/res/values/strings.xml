@@ -24,6 +24,7 @@
     <string name="MS">💣 Minesweeper</string>
     <string name="logout">Logout</string>
     <string name="users">Users</string>
+    <string name="leaderboard">Leaderboard</string>
 
     <string name="TTT_init">Player 1, please pick a symbol</string>
     <string name="TTT_tie">Tie</string>
@@ -40,4 +41,10 @@
 
     <string name="MS_win">"Congratulations! You've cleared the minefield."</string>
     <string name="MS_lose">"Game Over! You hit a mine."</string>
+
+    <string name="MS_restart">"Restart Game"</string>
+
+    <string name="score">Score</string>
+    <string name="inv_game">Invalid Game</string>
+    <string name="profile">Your Profile</string>
 </resources>

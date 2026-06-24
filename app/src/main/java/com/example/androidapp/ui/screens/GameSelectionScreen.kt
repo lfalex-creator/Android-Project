@@ -24,7 +24,7 @@ fun GameSelectionScreen(
     goToColourPicker:()->Unit = {},
     goToMinesweeper:()->Unit = {},
     logout: ()->Unit = {},
-    goToUsers: () -> Unit = {},
+    goToProfile: () -> Unit = {},
     goToNetworkList: () -> Unit = {}
 ) {
     Column(
@@ -68,15 +68,15 @@ fun GameSelectionScreen(
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Button(onClick=goToUsers)
+        Button(onClick=goToProfile)
         {
-            Text(text=stringResource(R.string.users))
+            Text(text=stringResource(R.string.profile))
         }
         Spacer(modifier = Modifier.height(30.dp))
 
         Button(onClick = goToNetworkList)
         {
-            Text(text = "Leaderboard")
+            Text(text = stringResource(R.string.leaderboard))
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(onClick=logout)

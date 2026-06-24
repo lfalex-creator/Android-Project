@@ -14,7 +14,7 @@ import com.example.androidapp.ui.screens.GameSelectionScreen
 import com.example.androidapp.ui.screens.MineSweeperScreen
 import com.example.androidapp.ui.screens.TicTacToeScreen
 import com.example.androidapp.ui.screens.UsersListScreen
-import com.example.androidapp.ui.screens.UsersScreen
+import com.example.androidapp.ui.screens.ProfileScreen
 import com.example.androidapp.util.PrefsHelper
 import com.example.androidapp.viewModels.NetworkViewModel
 import com.example.androidapp.viewModels.UsersViewModel
@@ -40,7 +40,7 @@ fun GameSelectionNavigation(
                 goToBallSorting = {navController.navigate("BSScreen")},
                 goToColourPicker = {navController.navigate("CPScreen")},
                 goToMinesweeper = {navController.navigate("MSScreen")},
-                goToUsers = {navController.navigate("UsersScreen")},
+                goToProfile = {navController.navigate("ProfileScreen")},
                 goToNetworkList = {navController.navigate("NetworkUsersScreen")},
                 logout = onLogout
             )
@@ -58,8 +58,8 @@ fun GameSelectionNavigation(
         composable("MSScreen") {
             MineSweeperScreen(currentUser = currentUser)
         }
-        composable("UsersScreen"){
-            UsersScreen()
+        composable("ProfileScreen"){
+            ProfileScreen(currentUser = currentUser)
         }
         composable("NetworkUsersScreen") {
             UsersListScreen(viewModel = networkViewModel,currentUser = currentUser)

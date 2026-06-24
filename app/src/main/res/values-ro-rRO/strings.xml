@@ -24,6 +24,7 @@
     <string name="MS">💣 Minesweeper</string>
     <string name="logout">Deconectare</string>
     <string name="users">Utilizatori</string>
+    <string name="leaderboard">Clasament</string>
 
     <string name="TTT_init">Juacatorul 1, te rog alege un simbol</string>
     <string name="TTT_tie">Egalitate</string>
@@ -40,4 +41,9 @@
 
     <string name="MS_win">"Felicitari! Ati dezamorsat toate minele!"</string>
     <string name="MS_lose">"Ati pierdut! Ati calcat pe o mina!"</string>
+
+    <string name="MS_restart">"Reincepeti jocul"</string>
+    <string name="score">Scor</string>
+    <string name="inv_game">Joc invalid</string>
+    <string name="profile">Profilul dumneavoastra</string>
 </resources>

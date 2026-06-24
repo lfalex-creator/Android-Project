@@ -1,5 +1,6 @@
 package com.example.androidapp.ui.screens
 
+import com.example.androidapp.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidapp.ui.data.entities.UserEntity
@@ -92,7 +94,7 @@ fun MineSweeperScreen(viewModel: MSViewModel = viewModel(),currentUser: UserEnti
             viewModel.disableTap = false
             viewModel.initializeField()
         }) {
-            Text(text = "Restart Game")
+            Text(text = stringResource(R.string.MS_restart))
         }
     }
 
