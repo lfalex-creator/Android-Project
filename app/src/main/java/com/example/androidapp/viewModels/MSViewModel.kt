@@ -1,16 +1,26 @@
 package com.example.androidapp.viewModels
 
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.androidapp.R
+import com.example.androidapp.ui.data.AppDataBase
+import com.example.androidapp.ui.data.entities.UserEntity
+import com.example.androidapp.ui.data.entities.UserGameEntity
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlin.collections.get
 
-class MSViewModel : ViewModel() {
+class MSViewModel(
+    application: Application
+) : AndroidViewModel(application) {
 
     class Cell {
         var isMine by mutableStateOf(false)
@@ -25,6 +35,10 @@ class MSViewModel : ViewModel() {
     var currentMines = 0
     var flagMode by mutableStateOf(false)
     var disableTap by mutableStateOf(false)
+    lateinit var currentUser : UserEntity
+    private val userDao = AppDataBase.getDatabase(application).userDao()
+    private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
+
     fun initializeField(tappedRow: Int = -1, tappedCol: Int = -1) {
 
         if (tappedRow == -1 || tappedCol == -1) {
@@ -167,6 +181,20 @@ class MSViewModel : ViewModel() {
     }
 
     fun gameOver(context: Context){
+        viewModelScope.launch {
+            val games = userDao.getGamesOfUser(currentUser.id).first()
+
+            val thisGame = games.first { it.gameId == 3L }
+
+            usersGamesDao.addGame(
+                UserGameEntity(
+                    userId = currentUser.id,
+                    gameId = thisGame.gameId,
+                    score = thisGame.score - 5
+                )
+            )
+        }
+
         isInitialized = false
         disableTap = true
         for (i in 0 until 10) {
@@ -186,6 +214,19 @@ class MSViewModel : ViewModel() {
     }
 
     fun win(context: Context){
+        viewModelScope.launch {
+            val games = userDao.getGamesOfUser(currentUser.id).first()
+
+            val thisGame = games.first { it.gameId == 3L }
+
+            usersGamesDao.addGame(
+                UserGameEntity(
+                    userId = currentUser.id,
+                    gameId = thisGame.gameId,
+                    score = thisGame.score + 20
+                )
+            )
+        }
         isInitialized = false
         disableTap = true
         AlertDialog.Builder(context)

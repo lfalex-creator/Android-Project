@@ -1,13 +1,23 @@
 package com.example.androidapp.viewModels
 
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Context
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.androidapp.R
+import com.example.androidapp.ui.data.AppDataBase
+import com.example.androidapp.ui.data.entities.UserEntity
+import com.example.androidapp.ui.data.entities.UserGameEntity
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class BSViewModel : ViewModel() {
+class BSViewModel(
+    application: Application
+) : AndroidViewModel(application) {
     fun generateRandomColours() : HashMap<Int, Color>
     {
         val toReturn = HashMap<Int, Color>()
@@ -43,6 +53,10 @@ class BSViewModel : ViewModel() {
     )
     var previouslyClicked = -1
     var ballSelected = false
+    lateinit var currentUser : UserEntity
+    private val userDao = AppDataBase.getDatabase(application).userDao()
+    private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
+
     fun scrambleSolution(cupColours: HashMap<Int, Color>) : Array<IntArray>
     {
         for(i in 0..11)
@@ -151,6 +165,22 @@ class BSViewModel : ViewModel() {
             if(!(matrix[0][i]==matrix[1][i] && matrix[2][i]==matrix[1][i] && matrix[3][i]==-1))
                 return false;
         return true;
+    }
+    fun addPoints()
+    {
+        viewModelScope.launch {
+            val games = userDao.getGamesOfUser(currentUser.id).first()
+
+            val thisGame = games.first { it.gameId == 1L }
+
+            usersGamesDao.addGame(
+                UserGameEntity(
+                    userId = currentUser.id,
+                    gameId = thisGame.gameId,
+                    score = thisGame.score + 20
+                )
+            )
+        }
     }
     fun showWinner(context: Context) {
         AlertDialog.Builder(context)

@@ -17,13 +17,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidapp.ui.data.entities.UserEntity
 import com.example.androidapp.viewModels.CPViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun ColourPickerScreen(viewModel: CPViewModel = viewModel()) {
+fun ColourPickerScreen(
+    viewModel: CPViewModel = viewModel(),
+    currentUser: UserEntity?) {
     val matrix = viewModel.matrix
-
+    viewModel.currentUser=currentUser ?: UserEntity(0,"")
     Column(
         modifier = Modifier
             .fillMaxSize(),

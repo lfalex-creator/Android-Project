@@ -26,14 +26,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidapp.ui.data.entities.UserEntity
+import com.example.androidapp.util.PrefsHelper
 import com.example.androidapp.viewModels.BSViewModel
 
 @Composable
-fun BallSortingScreen(viewModel: BSViewModel = viewModel())
+fun BallSortingScreen(viewModel: BSViewModel = viewModel(),currentUser: UserEntity?)
 {
     var colours = viewModel.generateRandomColours()
     var matrix = viewModel.scrambleSolution(colours)
     val context=LocalContext.current
+    viewModel.currentUser=currentUser ?: UserEntity(0,"")
     Column(
         modifier= Modifier
             .fillMaxSize(),
@@ -66,6 +69,7 @@ fun BallSortingScreen(viewModel: BSViewModel = viewModel())
                                     if(viewModel.checkWinnner())
                                     {
                                         viewModel.showWinner(context)
+                                        viewModel.addPoints()
                                         colours = viewModel.generateRandomColours()
                                         matrix = viewModel.scrambleSolution(colours)
                                     }

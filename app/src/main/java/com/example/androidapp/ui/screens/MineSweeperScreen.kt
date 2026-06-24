@@ -24,12 +24,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidapp.ui.data.entities.UserEntity
 import com.example.androidapp.viewModels.MSViewModel
 
 @Composable
-fun MineSweeperScreen(viewModel: MSViewModel = viewModel()) {
+fun MineSweeperScreen(viewModel: MSViewModel = viewModel(),currentUser: UserEntity?) {
     val context = LocalContext.current
-
+    viewModel.currentUser=currentUser ?: UserEntity(0,"")
     LaunchedEffect(Unit) {
         viewModel.initializeField()
     }

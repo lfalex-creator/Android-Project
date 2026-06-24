@@ -1,15 +1,27 @@
 package com.example.androidapp.viewModels
 
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.colorspace.ColorSpaces
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.androidapp.R
+import com.example.androidapp.ui.data.AppDataBase
+import com.example.androidapp.ui.data.entities.UserEntity
+import com.example.androidapp.ui.data.entities.UserGameEntity
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class CPViewModel : ViewModel() {
+class CPViewModel(
+    application: Application
+) : AndroidViewModel(application) {
     var matrix = List(10) {
         mutableStateListOf<Boolean>()
     }
@@ -17,6 +29,10 @@ class CPViewModel : ViewModel() {
     var currentDifference = 0.58f
     var colour = Color(0)
     var colourToPick = Color(0)
+    lateinit var currentUser : UserEntity
+    private val userDao = AppDataBase.getDatabase(application).userDao()
+    private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
+
     init
     {
         for(i in 0..9)
@@ -70,7 +86,19 @@ class CPViewModel : ViewModel() {
     }
     fun win(context: Context)
     {
-        //give player points
+        viewModelScope.launch {
+            val games = userDao.getGamesOfUser(currentUser.id).first()
+
+            val thisGame = games.first { it.gameId == 2L }
+
+            usersGamesDao.addGame(
+                UserGameEntity(
+                    userId = currentUser.id,
+                    gameId = thisGame.gameId,
+                    score = thisGame.score + 20
+                )
+            )
+        }
         AlertDialog.Builder(context)
             .setMessage(context.getString(R.string.CP_win))
             .setPositiveButton("OK") { dialog, _ ->
@@ -81,7 +109,19 @@ class CPViewModel : ViewModel() {
     }
     fun lose(context: Context)
     {
-        //give player points
+        viewModelScope.launch {
+            val games = userDao.getGamesOfUser(currentUser.id).first()
+
+            val thisGame = games.first { it.gameId == 2L }
+
+            usersGamesDao.addGame(
+                UserGameEntity(
+                    userId = currentUser.id,
+                    gameId = thisGame.gameId,
+                    score = thisGame.score - 5
+                )
+            )
+        }
         AlertDialog.Builder(context)
             .setMessage(context.getString(R.string.CP_lose))
             .setPositiveButton("OK") { dialog, _ ->

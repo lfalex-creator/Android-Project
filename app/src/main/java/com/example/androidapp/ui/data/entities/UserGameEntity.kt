@@ -18,12 +18,11 @@ import androidx.room.ForeignKey
             childColumns = ["gameId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    primaryKeys = ["userId", "gameId"]
 )
 data class UserGameEntity (
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
     val userId : Long,
     val gameId : Long,
-    val score : Long
+    var score : Long
 )

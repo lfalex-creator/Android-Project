@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.ui.data.AppDataBase
 import com.example.androidapp.ui.data.entities.UserEntity
+import com.example.androidapp.ui.data.entities.UserGameEntity
 import com.example.androidapp.util.PrefsHelper
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,6 +79,7 @@ class AuthViewModel(
         auth.signOut()
     }
     private val userDao = AppDataBase.getDatabase(application).userDao()
+    private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
     fun insert(email: String)
     {
         viewModelScope.launch{
@@ -86,6 +88,10 @@ class AuthViewModel(
             val emailExists = existingUsers.any { it.email == email }
             if(!emailExists) {
                 userDao.insert(UserEntity(email = email))
+                val temp = userDao.getByEmail(email)[0]
+                usersGamesDao.addGame(UserGameEntity(userId = temp.id, gameId = 1, score = 0))
+                usersGamesDao.addGame(UserGameEntity(userId = temp.id, gameId = 2, score = 0))
+                usersGamesDao.addGame(UserGameEntity(userId = temp.id, gameId = 3, score = 0))
             }
         }
     }

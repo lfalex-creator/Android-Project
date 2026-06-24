@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidapp.ui.data.entities.UserEntity
 import com.example.androidapp.util.PrefsHelper
 import com.example.androidapp.viewModels.NetworkViewModel
 import com.example.androidapp.viewModels.UsersViewModel
@@ -29,15 +30,11 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun UsersListScreen(
     viewModel: NetworkViewModel = viewModel(),
-    usersViewModel: UsersViewModel = viewModel()
+    usersViewModel: UsersViewModel = viewModel(),
+    currentUser: UserEntity?
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
-
-    val currentUserEmail = PrefsHelper.getLastEmail(context)
-    val localUsers by usersViewModel.users.collectAsState()
-    val currentUser = localUsers.find { it.email == currentUserEmail }
-
     val gamesFlow = remember(currentUser) {
         currentUser?.let { usersViewModel.getUserGames(it.id) } ?: flowOf(emptyList())
     }
@@ -56,7 +53,7 @@ fun UsersListScreen(
         Button(
             onClick = {
                 viewModel.sendUser(
-                    email = currentUserEmail,
+                    email = currentUser?.email ?: "no email",
                     score = totalScore
                 )
             },
