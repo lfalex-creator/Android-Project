@@ -1,9 +1,7 @@
 package com.example.androidapp.viewModels
 
-import android.R.attr.id
 import android.app.AlertDialog
 import android.content.Context
-import android.provider.Settings.Global.getString
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,13 +31,21 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.ViewModel
 import com.example.androidapp.R
-import com.example.androidapp.ui.screens.playerOneColour
-import com.example.androidapp.ui.screens.playerOneSymb
-import com.example.androidapp.ui.screens.playerTwoSymb
 
 class TTTViewModel : ViewModel()
 {
+    var matr= mutableStateListOf(
+        mutableStateListOf(' ', ' ', ' '),
+        mutableStateListOf(' ', ' ', ' '),
+        mutableStateListOf(' ', ' ', ' ')
+    )
 
+    val playerOneColour = Color.Red
+    val playerTwoColour = Color.Blue
+    var playerOneSymb = ' '
+    var playerTwoSymb = ' '
+    var playerOneTurn by mutableStateOf(true)
+    lateinit var context : Context
     fun showWinner(context: Context, playerOneTurn: Boolean) {
 
             AlertDialog.Builder(context)
@@ -58,16 +65,16 @@ class TTTViewModel : ViewModel()
             }
             .show()
     }
-    fun checkTie(matr: Array<CharArray>) : Boolean
+    fun checkTie() : Boolean
     {
         for(i in 0 until 3)
             for(j in 0 until 3)
                 if(matr[i][j]==' ')
                     return false
 
-        return !checkWinner(matr)
+        return !checkWinner()
     }
-    fun checkWinner(matr: Array<CharArray>) : Boolean
+    fun checkWinner() : Boolean
     {
         for(i in 0 until 3)
         {
@@ -87,14 +94,38 @@ class TTTViewModel : ViewModel()
         return false
     }
 
-    fun reset(matr: Array<CharArray>)
+    fun reset()
     {
         for(i in 0 until 3)
             for(j in 0 until 3)
                 matr[i][j]=' '
     }
 
+    fun onMove(row:Int,col:Int)
+    {
+            matr[row][col] = if (playerOneTurn) playerOneSymb else playerTwoSymb
+            if(checkWinner())
+            {
+                showWinner(context, playerOneTurn)
 
+                val temp= playerOneSymb
+                playerOneSymb = playerTwoSymb
+                playerTwoSymb = temp
+
+                reset()
+            }
+            else if (checkTie())
+            {
+               showTie(context)
+
+                val temp= playerOneSymb
+                playerOneSymb = playerTwoSymb
+                playerTwoSymb = temp
+
+                reset()
+            }
+            playerOneTurn = !playerOneTurn
+    }
     @Composable
     fun SymbolDialog() {
         var showDialog by remember { mutableStateOf(true) }

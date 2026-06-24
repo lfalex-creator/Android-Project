@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,26 +31,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidapp.R
 import com.example.androidapp.viewModels.TTTViewModel
 
-var matr=arrayOf(
-    charArrayOf(' ', ' ', ' '),
-    charArrayOf(' ', ' ', ' '),
-    charArrayOf(' ', ' ', ' ')
-)
-val playerOneColour = Color.Red
-val playerTwoColour = Color.Blue
-var playerOneSymb = ' '
-var playerTwoSymb = ' '
 @Composable
-    fun TicTacToeScreen(viewModel: TTTViewModel = viewModel()) {
-        var playerOneTurn by remember { mutableStateOf(true) }
-        val context=LocalContext.current
+fun TicTacToeScreen(viewModel: TTTViewModel = viewModel()) {
+    viewModel.context = LocalContext.current
+    var matr by remember {mutableStateOf(viewModel.matr)}
     viewModel.SymbolDialog()
     DisposableEffect(Unit) {
         onDispose {
-            matr=arrayOf(
-                charArrayOf(' ', ' ', ' '),
-                charArrayOf(' ', ' ', ' '),
-                charArrayOf(' ', ' ', ' ')
+            viewModel.matr= mutableStateListOf(
+                mutableStateListOf(' ', ' ', ' '),
+                mutableStateListOf(' ', ' ', ' '),
+                mutableStateListOf(' ', ' ', ' ')
             )
         }
     }
@@ -65,40 +57,17 @@ var playerTwoSymb = ' '
                         Cell(
                             row = row,
                             col = col,
-                            playerOneTurn = playerOneTurn,
-                            onMove = {
-                                matr[row][col] = if (playerOneTurn) playerOneSymb else playerTwoSymb
-                                if(viewModel.checkWinner(matr))
-                                {
-                                    viewModel.showWinner(context, playerOneTurn)
-
-                                    val temp= playerOneSymb
-                                    playerOneSymb = playerTwoSymb
-                                    playerTwoSymb = temp
-
-                                    viewModel.reset(matr)
-                                }
-                                else if (viewModel.checkTie(matr))
-                                {
-                                    viewModel.showTie(context)
-
-                                    val temp= playerOneSymb
-                                    playerOneSymb = playerTwoSymb
-                                    playerTwoSymb = temp
-
-                                    viewModel.reset(matr)
-                                }
-                                playerOneTurn = !playerOneTurn
-                            }
+                            onMove = {viewModel.onMove(row,col)},
+                            viewModel = viewModel
                         )
                     }
                 }
             }
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = if (playerOneTurn) stringResource(R.string.TTT_p1t) else stringResource(R.string.TTT_p2t) ,
+                text = if (viewModel.playerOneTurn) stringResource(R.string.TTT_p1t) else stringResource(R.string.TTT_p2t) ,
                 fontSize = 20.sp,
-                color = if (playerOneTurn) playerOneColour else playerTwoColour,
+                color = if (viewModel.playerOneTurn) viewModel.playerOneColour else viewModel.playerTwoColour,
                 textAlign = TextAlign.Center
             )
         }
@@ -108,25 +77,28 @@ var playerTwoSymb = ' '
 fun Cell(
     row: Int,
     col: Int,
-    playerOneTurn: Boolean,
-    onMove: () -> Unit
+    onMove: () -> Unit,
+    viewModel: TTTViewModel
 ) {
     var currentColour by remember { mutableStateOf(Color.White) }
+
     Box(
         modifier = Modifier
             .border(1.dp, Color.Black)
             .clickable {
-                if (matr[row][col] == ' ') {
-                    currentColour = if (playerOneTurn) playerOneColour else playerTwoColour
+                if (viewModel.matr[row][col] == ' ')
+                {
+                    currentColour = if (viewModel.playerOneTurn) viewModel.playerOneColour else viewModel.playerTwoColour
                     onMove()
                 }
+
             }
             .size(110.dp, 110.dp),
         contentAlignment = Alignment.Center
     )
     {
         Text(
-            text = (matr[row][col]).toString(),
+            text = (viewModel.matr[row][col]).toString(),
             modifier = Modifier.fillMaxSize(),
             fontSize = 100.sp,
             color = currentColour,
