@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.androidapp.ui.screens.BallSortingScreen
 import com.example.androidapp.ui.screens.ColourPickerScreen
 import com.example.androidapp.ui.screens.GameSelectionScreen
+import com.example.androidapp.ui.screens.MineSweeperScreen
 import com.example.androidapp.ui.screens.TicTacToeScreen
 import com.example.androidapp.ui.screens.UsersListScreen
 import com.example.androidapp.ui.screens.UsersScreen
@@ -28,6 +29,7 @@ fun GameSelectionNavigation(
                 goToTicTacToe = { navController.navigate("TTTScreen") },
                 goToBallSorting = {navController.navigate("BSScreen")},
                 goToColourPicker = {navController.navigate("CPScreen")},
+                goToMinesweeper = {navController.navigate("MSScreen")},
                 goToUsers = {navController.navigate("UsersScreen")},
                 goToNetworkList = {navController.navigate("NetworkUsersScreen")},
                 logout = onLogout
@@ -42,6 +44,9 @@ fun GameSelectionNavigation(
         }
         composable("CPScreen") {
             ColourPickerScreen()
+        }
+        composable("MSScreen") {
+            MineSweeperScreen()
         }
         composable("UsersScreen"){
             UsersScreen()

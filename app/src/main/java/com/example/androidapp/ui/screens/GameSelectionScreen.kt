@@ -24,6 +24,7 @@ fun GameSelectionScreen(
     goToTicTacToe:()->Unit = {},
     goToBallSorting:()->Unit = {},
     goToColourPicker:()->Unit = {},
+    goToMinesweeper:()->Unit = {},
     logout: ()->Unit = {},
     goToUsers: () -> Unit = {},
     goToNetworkList: () -> Unit = {}
@@ -63,9 +64,10 @@ fun GameSelectionScreen(
                 Text(text=stringResource(R.string.CP))
             }
             Spacer(modifier = Modifier.width(20.dp))
-            Text(
-                text="Placeholder4"
-            )
+            Button(onClick=goToMinesweeper)
+            {
+                Text(text = stringResource(R.string.MS))
+            }
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(onClick=goToUsers)

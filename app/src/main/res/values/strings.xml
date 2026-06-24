@@ -18,9 +18,10 @@
     <string name="login_logtext">Login Page</string>
     <string name="login_toregister">Don\'t have an account? Register</string>
 
-    <string name="TTT">TicTacToe</string>
-    <string name="BS">Ball sorting</string>
-    <string name="CP">Colour Picker</string>
+    <string name="TTT">❌ TicTacToe</string>
+    <string name="BS">🧪 Ball sorting</string>
+    <string name="CP">🔴 Colour Picker</string>
+    <string name="MS">💣 Minesweeper</string>
     <string name="logout">Logout</string>
     <string name="users">Users</string>
 
@@ -36,4 +37,7 @@
 
     <string name="CP_win">"Congratulations, you've won!"</string>
     <string name="CP_lose">"Oh no, you've lost!"</string>
+
+    <string name="MS_win">"Congratulations! You've cleared the minefield."</string>
+    <string name="MS_lose">"Game Over! You hit a mine."</string>
 </resources>

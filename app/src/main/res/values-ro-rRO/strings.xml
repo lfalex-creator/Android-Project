@@ -18,9 +18,10 @@
     <string name="login_logtext">Pagina de logare</string>
     <string name="login_toregister">Nu aveti un cont? Inregistrati-va</string>
 
-    <string name="TTT">X si O</string>
-    <string name="BS">Sortare bile</string>
-    <string name="CP">Alegere culori</string>
+    <string name="TTT">❌ X si O</string>
+    <string name="BS">🧪 Sortare bile</string>
+    <string name="CP">🔴 Alegere culori</string>
+    <string name="MS">💣 Minesweeper</string>
     <string name="logout">Deconectare</string>
     <string name="users">Utilizatori</string>
 
@@ -36,4 +37,7 @@
 
     <string name="CP_win">"Felicitari, ati castigat!"</string>
     <string name="CP_lose">"O nu, ati pierdut!"</string>
+
+    <string name="MS_win">"Felicitari! Ati dezamorsat toate minele!"</string>
+    <string name="MS_lose">"Ati pierdut! Ati calcat pe o mina!"</string>
 </resources>
