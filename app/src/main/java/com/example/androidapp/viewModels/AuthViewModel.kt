@@ -3,15 +3,18 @@ package com.example.androidapp.viewModels
 import android.app.Application
 import android.os.Message
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.ui.data.AppDataBase
 import com.example.androidapp.ui.data.entities.UserEntity
+import com.example.androidapp.util.PrefsHelper
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 
@@ -31,6 +34,8 @@ class AuthViewModel(
     private val _isLoggedIn = MutableStateFlow(auth.currentUser != null)
     val isLoggedIn: StateFlow<Boolean> = _isLoggedIn.asStateFlow()
 
+
+
     init {
         auth.addAuthStateListener { firebaseAuth ->
             _isLoggedIn.value = firebaseAuth.currentUser != null
@@ -42,6 +47,8 @@ class AuthViewModel(
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 Log.e("Login", "Success")
+                PrefsHelper.saveLastEmail(getApplication(), email)
+                insert(email)
                 _authState.value= AuthState()
                 //onSuccess()
             }
@@ -57,6 +64,8 @@ class AuthViewModel(
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 Log.e("Register", "Success")
+                PrefsHelper.saveLastEmail(getApplication(), email)
+
                 _authState.value= AuthState()
                 //onSuccess()
             }
@@ -72,7 +81,12 @@ class AuthViewModel(
     fun insert(email: String)
     {
         viewModelScope.launch{
-            userDao.insert(UserEntity(email = email))
+            val existingUsers = userDao.getAll().first()
+
+            val emailExists = existingUsers.any { it.email == email }
+            if(!emailExists) {
+                userDao.insert(UserEntity(email = email))
+            }
         }
     }
 }

@@ -25,7 +25,8 @@ fun GameSelectionScreen(
     goToBallSorting:()->Unit = {},
     goToColourPicker:()->Unit = {},
     logout: ()->Unit = {},
-    goToUsers: () -> Unit = {}
+    goToUsers: () -> Unit = {},
+    goToNetworkList: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -70,6 +71,12 @@ fun GameSelectionScreen(
         Button(onClick=goToUsers)
         {
             Text(text=stringResource(R.string.users))
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Button(onClick = goToNetworkList)
+        {
+            Text(text = "Leaderboard")
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(onClick=logout)
