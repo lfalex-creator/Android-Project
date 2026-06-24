@@ -52,7 +52,7 @@ fun UsersListScreen(
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-
+        Spacer(modifier = Modifier.height(24.dp))
         Button(
             onClick = {
                 viewModel.sendUser(
