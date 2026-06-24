@@ -8,7 +8,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.R
 import com.example.androidapp.ui.data.AppDataBase
@@ -16,7 +15,6 @@ import com.example.androidapp.ui.data.entities.UserEntity
 import com.example.androidapp.ui.data.entities.UserGameEntity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlin.collections.get
 
 class MSViewModel(
     application: Application
@@ -210,7 +208,6 @@ class MSViewModel(
                 dialog.dismiss()
             }
             .show()
-//        initializeField()
     }
 
     fun win(context: Context){
@@ -235,6 +232,5 @@ class MSViewModel(
                 dialog.dismiss()
             }
             .show()
-//        initializeField()
     }
 }

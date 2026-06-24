@@ -1,12 +1,8 @@
 package com.example.androidapp.viewModels
 
 import android.app.Application
-import android.os.Message
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.ui.data.AppDataBase
 import com.example.androidapp.ui.data.entities.UserEntity
@@ -52,7 +48,6 @@ class AuthViewModel(
                 PrefsHelper.saveLastEmail(getApplication(), email)
                 insert(email)
                 _authState.value= AuthState()
-                //onSuccess()
             }
             .addOnFailureListener {error ->
                 Log.e("Login", "Failed")
@@ -69,7 +64,6 @@ class AuthViewModel(
                 PrefsHelper.saveLastEmail(getApplication(), email)
 
                 _authState.value= AuthState()
-                //onSuccess()
             }
             .addOnFailureListener {
                 Log.e("Register", "Failed")

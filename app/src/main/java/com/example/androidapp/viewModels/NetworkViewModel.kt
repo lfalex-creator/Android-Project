@@ -2,9 +2,7 @@ package com.example.androidapp.viewModels
 
 import android.app.Application
 import android.content.Context
-import android.util.Log.e
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.network.dtos.UserDto
 import com.example.androidapp.network.RetrofitClient

@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidapp.ui.data.entities.UserEntity
-import com.example.androidapp.util.PrefsHelper
 import com.example.androidapp.viewModels.NetworkViewModel
 import com.example.androidapp.viewModels.UsersViewModel
 import kotlinx.coroutines.flow.flowOf

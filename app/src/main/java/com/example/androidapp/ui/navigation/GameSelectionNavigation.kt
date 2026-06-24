@@ -8,7 +8,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.androidapp.ui.data.entities.UserEntity
 import com.example.androidapp.ui.screens.BallSortingScreen
 import com.example.androidapp.ui.screens.ColourPickerScreen
 import com.example.androidapp.ui.screens.GameSelectionScreen

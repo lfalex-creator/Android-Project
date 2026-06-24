@@ -1,7 +1,6 @@
 package com.example.androidapp.ui.data.entities
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 @Entity(
     tableName = "users_games",

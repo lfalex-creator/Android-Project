@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.R
 import com.example.androidapp.ui.data.AppDataBase

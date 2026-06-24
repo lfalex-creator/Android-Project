@@ -1,7 +1,6 @@
 package com.example.androidapp.ui.data
 
 import android.content.Context
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,8 +10,6 @@ import com.example.androidapp.ui.data.DAO.UsersDAO
 import com.example.androidapp.ui.data.DAO.UsersGamesDAO
 import com.example.androidapp.ui.data.entities.GameEntity
 import com.example.androidapp.ui.data.entities.UserGameEntity
-import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.CoroutineScope
 @Database(
     entities = [
         UserEntity::class,
