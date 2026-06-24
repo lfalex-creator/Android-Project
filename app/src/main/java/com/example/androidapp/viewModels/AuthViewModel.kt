@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.example.androidapp.ui.data.AppDataBase
 import com.example.androidapp.ui.data.entities.UserEntity
@@ -80,6 +81,7 @@ class AuthViewModel(
     }
     private val userDao = AppDataBase.getDatabase(application).userDao()
     private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
+    private val dataBase = AppDataBase.getDatabase(application)
     fun insert(email: String)
     {
         viewModelScope.launch{
@@ -89,6 +91,7 @@ class AuthViewModel(
             if(!emailExists) {
                 userDao.insert(UserEntity(email = email))
                 val temp = userDao.getByEmail(email)[0]
+                viewModelScope.launch { dataBase.addGames() }
                 usersGamesDao.addGame(UserGameEntity(userId = temp.id, gameId = 1, score = 0))
                 usersGamesDao.addGame(UserGameEntity(userId = temp.id, gameId = 2, score = 0))
                 usersGamesDao.addGame(UserGameEntity(userId = temp.id, gameId = 3, score = 0))

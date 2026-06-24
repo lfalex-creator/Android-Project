@@ -35,7 +35,6 @@ class CPViewModel(
 
     init
     {
-        viewModelScope.launch { AppDataBase.getDatabase(application).addGames() }
         for(i in 0..9)
             for(j in 0..9)
                 matrix[i].add(false)

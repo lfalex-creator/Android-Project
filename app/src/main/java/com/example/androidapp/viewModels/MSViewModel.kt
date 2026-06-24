@@ -39,9 +39,6 @@ class MSViewModel(
     private val userDao = AppDataBase.getDatabase(application).userDao()
     private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
 
-    init{
-        viewModelScope.launch { AppDataBase.getDatabase(application).addGames() }
-    }
     fun initializeField(tappedRow: Int = -1, tappedCol: Int = -1) {
 
         if (tappedRow == -1 || tappedCol == -1) {

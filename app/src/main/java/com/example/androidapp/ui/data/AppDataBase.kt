@@ -43,8 +43,8 @@ abstract class AppDataBase : RoomDatabase()
     }
     suspend fun addGames()
     {
-        gameDao().addGame(GameEntity(name="BS"))
-        gameDao().addGame(GameEntity(name="CP"))
-        gameDao().addGame(GameEntity(name="MS"))
+        gameDao().addGame(GameEntity(id=1L,name="BS"))
+        gameDao().addGame(GameEntity(id=2L,name="CP"))
+        gameDao().addGame(GameEntity(id=3L,name="MS"))
     }
 }
