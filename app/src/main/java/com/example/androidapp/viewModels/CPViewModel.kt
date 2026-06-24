@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.colorspace.ColorSpaces
 import androidx.lifecycle.ViewModel
 import com.example.androidapp.R
 import kotlin.random.Random
@@ -13,7 +14,7 @@ class CPViewModel : ViewModel() {
         mutableStateListOf<Boolean>()
     }
     var level = 0
-    var currentDifference = 200
+    var currentDifference = 0.58f
     var colour = Color(0)
     var colourToPick = Color(0)
     init
@@ -25,17 +26,17 @@ class CPViewModel : ViewModel() {
     }
     fun generateRandomColours()
     {
-        val r = Random.nextInt(0,256)
-        val g = Random.nextInt(0,256-r)
-        val b= 256 - r -g
+        val r = Random.nextFloat()
+        val g = Random.nextFloat()
+        val b= Random.nextFloat()
 
-        colour = Color(r,g,b)
+        colour = Color(r,g,b,colorSpace = ColorSpaces.Srgb)
 
-        val dr = minOf(r,Random.nextInt(0,currentDifference))
-        val dg = minOf(g,Random.nextInt(0,currentDifference-dr))
-        val db = minOf(b,Random.nextInt(0,currentDifference-dr-dg))
+        val dr = Random.nextFloat()*currentDifference
+        val dg = Random.nextFloat()*(currentDifference-dr)
+        val db = Random.nextFloat()*(currentDifference-dr-dg)
 
-        colourToPick = Color(r-dr,g-dg,b-db)
+        colourToPick = Color(r-dr,g-dg,b-db,colorSpace = ColorSpaces.Srgb)
     }
     fun generateRandomPosition(): Pair<Int,Int>
     {
@@ -52,14 +53,14 @@ class CPViewModel : ViewModel() {
                 matrix[i][j]=false
         matrix[cords.first][cords.second] = true
 
-        currentDifference-=20
+        currentDifference-=0.058f
         level++
     }
     fun onClick(row:Int, col:Int, context:Context)
     {
         if(matrix[row][col])
         {
-            if(currentDifference!=0)
+            if(currentDifference>0.001f)
                 prepareNewMatrix()
             else
                 win(context)
@@ -92,7 +93,7 @@ class CPViewModel : ViewModel() {
     fun Reset()
     {
         level = 0
-        currentDifference = 200
+        currentDifference = 0.58f
         prepareNewMatrix()
     }
 }

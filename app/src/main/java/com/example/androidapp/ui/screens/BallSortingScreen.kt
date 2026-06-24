@@ -53,8 +53,7 @@ fun BallSortingScreen(viewModel: BSViewModel = viewModel())
                     Box(
                         modifier = Modifier
                             .width(100.dp)
-                            .height(170.dp)
-                            .border(5.dp,Color.Red),
+                            .height(170.dp),
                         contentAlignment = Alignment.BottomCenter
                     )
                     {
