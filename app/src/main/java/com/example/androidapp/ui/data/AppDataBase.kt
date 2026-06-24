@@ -18,19 +18,18 @@ import com.example.androidapp.ui.data.entities.UserGameEntity
 abstract class AppDataBase : RoomDatabase()
 {
     abstract fun userDao(): UsersDAO
-    //in Kotlin NU exista static, dar exista companion object
     companion object{
         @Volatile
         private var instance: AppDataBase? = null
         fun getDatabase(context: Context): AppDataBase{
-            return instance ?: synchronized(this){ //synchronized = exitare dubla instantiere
+            return instance ?: synchronized(this){
                 val newInstance = Room.databaseBuilder(
-                    context.applicationContext,//contextul
-                    AppDataBase::class.java,//clasa
-                    "app_database"//numele fisierului din memoria device-ului
+                    context.applicationContext,
+                    AppDataBase::class.java,
+                    "app_database"
                 ).fallbackToDestructiveMigration(true).build()
                 instance = newInstance
-                newInstance//returneaza newInstance
+                newInstance
             }
         }
     }

@@ -14,12 +14,12 @@ import kotlin.text.insert
 
 class UsersViewModel(
     application: Application
-) : AndroidViewModel(application) //ofera context la instantierea bazei de date
+) : AndroidViewModel(application)
 {
     private val userDao = AppDataBase.getDatabase(application).userDao()
     val users = userDao.getAll().stateIn(
-        scope = viewModelScope,//pt corutina in backgr
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),//porneste la collect
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
         initialValue = emptyList()
     )
     fun insert(email: String)
@@ -31,8 +31,8 @@ class UsersViewModel(
     fun getUserGames(id: Long) : Flow<List<GamesDataEntity>>
     {
         return userDao.getGamesOfUser(id).stateIn(
-            scope = viewModelScope,//pt corutina in backgr
-            started = SharingStarted.WhileSubscribed(),//porneste la collect
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
             initialValue = emptyList()
         )
     }

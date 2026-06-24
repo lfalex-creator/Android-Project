@@ -67,10 +67,10 @@ fun UsersScreen(viewModel: UsersViewModel = viewModel())
             .fillMaxSize()
             .padding(24.dp)
             .border(width = 5.dp, color = Color.Red),
-        verticalArrangement = Arrangement.spacedBy(16.dp), //pune intre fiecare elem cate un spatiu de 16 dp
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(users.value){ user -> //un fel de foreach()
+        items(users.value){ user ->
             UserCell(user,viewModel.getUserGames(user.id))
         }
     }
@@ -86,7 +86,7 @@ fun UserCell(user: UserEntity,games: Flow<List<GamesDataEntity>>)
     ){
         Text(
             text = user.email,
-            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),//f - float, pt a nu crea evidenta pt fiecare culoare
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.width(5.dp))
@@ -98,12 +98,12 @@ fun UserCell(user: UserEntity,games: Flow<List<GamesDataEntity>>)
             {
                 Text(
                     text = "Scor:",
-                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),//f - float, pt a nu crea evidenta pt fiecare culoare
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     text = totalScore.toString(),
-                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),//f - float, pt a nu crea evidenta pt fiecare culoare
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

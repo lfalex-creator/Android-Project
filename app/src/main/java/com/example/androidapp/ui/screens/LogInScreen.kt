@@ -44,7 +44,7 @@ import com.example.androidapp.util.isValidPassword
 fun LogInScreen(
     modifier: Modifier = Modifier,
     onRegisterClick: () -> Unit = {},
-    onLoginClick: (email: String, password: String) -> Unit = {_,_ -> }, //param1 , param2 empty amandoua
+    onLoginClick: (email: String, password: String) -> Unit = {_,_ -> },
     isLoading: Boolean = false,
     errorMessage: String? = null
 
@@ -80,7 +80,7 @@ fun LogInScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { newValue ->
-                email = newValue//primeste val scrisa in field
+                email = newValue
                 emailError = null
             },
             label = {
@@ -90,7 +90,7 @@ fun LogInScreen(
                 Icon(
                     Icons.Default.Email,
                     contentDescription = null
-                )//content description ajuta la teste unitare
+                )
             },
             isError = emailError?.let {
                 true
@@ -99,8 +99,8 @@ fun LogInScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email, //tastatura speciala cu @ usor accesibil (langa space)
-                imeAction = ImeAction.Next//face butonul de "Enter" sa faca "Next"
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
             )
         )
         Spacer(
@@ -110,7 +110,7 @@ fun LogInScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { newValue ->
-                password = newValue//primeste val scrisa in field
+                password = newValue
                 passwordError = null
             },
             label = {
@@ -120,7 +120,7 @@ fun LogInScreen(
                 Icon(
                     Icons.Default.Password,
                     contentDescription = null
-                )//content description ajuta la teste unitare
+                )
             },
             isError = passwordError?.let {
                 true
@@ -129,8 +129,8 @@ fun LogInScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password, //tastatura speciala cu @ usor accesibil (langa space)
-                imeAction = ImeAction.Done//face butonul de "Enter" sa faca "Next"
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
 
             ),
 

@@ -88,7 +88,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { newValue ->
-                email = newValue//primeste val scrisa in field
+                email = newValue
                 emailError = null
             },
             label = {
@@ -98,7 +98,7 @@ fun RegisterScreen(
                 Icon(
                     Icons.Default.Email,
                     contentDescription = null
-                )//content description ajuta la teste unitare
+                )
             },
             isError = emailError?.let {
                 true
@@ -107,8 +107,8 @@ fun RegisterScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email, //tastatura speciala cu @ usor accesibil (langa space)
-                imeAction = ImeAction.Next//face butonul de "Enter" sa faca "Next"
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
             )
         )
         Spacer(
@@ -118,7 +118,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { newValue ->
-                password = newValue//primeste val scrisa in field
+                password = newValue
                 passwordError = null
             },
             label = {
@@ -128,7 +128,7 @@ fun RegisterScreen(
                 Icon(
                     Icons.Default.Password,
                     contentDescription = null
-                )//content description ajuta la teste unitare
+                )
             },
             isError = passwordError?.let {
                 true
@@ -137,8 +137,8 @@ fun RegisterScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password, //tastatura speciala cu @ usor accesibil (langa space)
-                imeAction = ImeAction.Done//face butonul de "Enter" sa faca "Next"
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
 
             ),
 
