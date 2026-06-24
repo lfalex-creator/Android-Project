@@ -57,6 +57,9 @@ class BSViewModel(
     private val userDao = AppDataBase.getDatabase(application).userDao()
     private val usersGamesDao = AppDataBase.getDatabase(application).usersGamesDao()
 
+    init{
+        viewModelScope.launch { AppDataBase.getDatabase(application).addGames() }
+    }
     fun scrambleSolution(cupColours: HashMap<Int, Color>) : Array<IntArray>
     {
         for(i in 0..11)
